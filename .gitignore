@@ -1,0 +1,6 @@
+cmake-build-debug
+CMakeLists.txt
+*.txt
+*.o
+.DS_Store
+*.out
