@@ -112,6 +112,7 @@ t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *, void *));
 /*
  *	OTHER USEFULL FUNCTION - 20 functions
  */
+char *mx_charjoin(char *str, char ch);
 int mx_atoi(const char *str);
 long mx_atol(const char *str);
 int mx_strncmp(const char *s1, const char *s2, int n);
