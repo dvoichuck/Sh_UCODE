@@ -1,4 +1,4 @@
-NAME = Ush
+NAME = ush
 
 
 SRC_DIR = src/
