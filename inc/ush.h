@@ -18,7 +18,7 @@
 
 typedef struct s_ush {
     char *str_input;
-
+    bool works;
 } t_ush;
 
 //
@@ -26,6 +26,11 @@ typedef struct s_ush {
 //
 void mx_initialization_struct(t_ush *ush);
 
+
+//
+//PARSE
+//
+void mx_parse_ush_manager(t_ush *ush);
 
 //
 // INPUT FUNCTION

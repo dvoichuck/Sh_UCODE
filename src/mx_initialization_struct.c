@@ -5,4 +5,5 @@
 
 void mx_initialization_struct(t_ush *ush) {
     ush->str_input = NULL;
+    ush->works = true;
 }
