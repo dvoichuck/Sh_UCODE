@@ -11,4 +11,5 @@ int main(int argc, char *argv[]) {
 static int tmain(int argc, char *argv[]) {
     mx_input();
     return 1;
+
 }

@@ -19,7 +19,7 @@ void mx_input(void) {
     write(1, "u$h> ", 5);
     for (;;) {
         if (read(0, &ch, 1)) {
-            mx_filling_str_with_input(ush, &ch);
+            mx_filling_str_with_input(ush, ch);
         }
         if (ch == '\n')
             write(1, "u$h> ", 5);
