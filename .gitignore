@@ -1,6 +1,6 @@
 .DS_Store
 ._.DS_Store
-*.0
+*.o
 *.out
 *.swp
 .vscode
@@ -18,3 +18,5 @@ obj
 uls
 libmx.a
 empty
+*.txt
+ush
