@@ -16,7 +16,19 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+typedef struct s_ush {
+    char *str_input;
+
+} t_ush;
+
+//
+//MAIN
+//
+void mx_initialization_struct(t_ush *ush);
+
+
 //
 // INPUT FUNCTION
 //
 void mx_input(void);
+void mx_filling_str_with_input(t_ush *ush, char *ch);
