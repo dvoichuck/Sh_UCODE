@@ -10,6 +10,9 @@ void mx_parse_ush_manager(t_ush *ush) {
         ush->works = false;
         exit(1);
     }
+//    else if() {
+//
+//    }
     else {
         mx_printstr("ush: command not found: ");
         mx_printstr(ush->str_input);
