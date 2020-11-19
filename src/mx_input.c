@@ -18,7 +18,7 @@ void mx_input(void) {
 //    tcsetattr(0, TCSAFLUSH, &tty);
     write(1, "u$h> ", 5);
     while (ush->works) {
-        if (read(0, &ch, 1) && ch != '\n') {
+        if (read(0, &ch, 1)) {
             mx_filling_str_with_input(ush, ch);
         }
         if (ch == '\n') {
@@ -26,6 +26,5 @@ void mx_input(void) {
             write(1, "u$h> ", 5);
         }
     }
-    printf("%s", ush->str_input);
 //    tcsetattr(0, TCSAFLUSH, &savetty);
 }
