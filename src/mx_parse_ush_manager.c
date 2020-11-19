@@ -5,7 +5,7 @@
 #include "ush.h"
 
 void mx_parse_ush_manager(t_ush *ush) {
-    if (mx_strcmp(ush->str_input, "exit\n") == 0) {
+    if (mx_strcmp(ush->str_input, "exit") == 0) {
         mx_printstr("exit\n");
         ush->works = false;
         exit(1);
