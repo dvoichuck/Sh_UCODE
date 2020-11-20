@@ -30,7 +30,7 @@ void mx_initialization_struct(t_ush *ush);
 //
 //PARSE
 //
-void mx_parse_ush_manager(t_ush *ush);
+void mx_parse_ush_manager(t_ush *ush, t_list **input);
 
 //
 // INPUT FUNCTION

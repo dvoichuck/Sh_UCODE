@@ -10,6 +10,7 @@ void mx_input(void) {
     char ch = '\0';
 
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
+    t_list *input = NULL;
     mx_initialization_struct(ush);
 //    tcgetattr(0, &tty);
 //    savetty = tty;
@@ -22,7 +23,7 @@ void mx_input(void) {
             mx_filling_str_with_input(ush, ch);
         }
         if (ch == '\n') {
-            mx_parse_ush_manager(ush);
+            mx_parse_ush_manager(ush, &input);
             write(1, "u$h> ", 5);
         }
     }
