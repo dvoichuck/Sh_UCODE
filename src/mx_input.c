@@ -10,6 +10,7 @@ void mx_input(char *envp[]) {
     char ch = '\0';
 
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
+    t_list *input = NULL;
     mx_initialization_struct(ush);
 //    tcgetattr(0, &tty);
 //    savetty = tty;
@@ -18,14 +19,14 @@ void mx_input(char *envp[]) {
 //    tcsetattr(0, TCSAFLUSH, &tty);
     write(1, "u$h> ", 5);
     while (ush->event) {
-        if (read(0, &ch, 1) && ch != '\n') {
+        if (read(0, &ch, 1)) {
             mx_filling_str_with_input(ush, ch);
         }
         if (ch == '\n') {
-            mx_parse_ush_manager(ush, envp);
+            mx_parse_ush_manager(&input, ush, envp);
+
             write(1, "u$h> ", 5);
         }
     }
-    printf("%s", ush->str_input);
 //    tcsetattr(0, TCSAFLUSH, &savetty);
 }

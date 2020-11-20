@@ -33,7 +33,7 @@ void mx_initialization_struct(t_ush *ush);
 /*
  * PARSE
  */
-void mx_parse_ush_manager(t_ush *ush, char *envp[]);
+void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]);
 
 
 /*
