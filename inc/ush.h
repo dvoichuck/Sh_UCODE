@@ -16,24 +16,36 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+#define MAX_LEN 1024
+
 typedef struct s_ush {
     char *str_input;
-    bool works;
+    char *dir_path;
+    bool event;
 } t_ush;
 
-//
-//MAIN
-//
+/*
+ * MAIN
+ */
 void mx_initialization_struct(t_ush *ush);
 
 
-//
-//PARSE
-//
-void mx_parse_ush_manager(t_ush *ush);
+/*
+ * PARSE
+ */
+void mx_parse_ush_manager(t_ush *ush, char *envp[]);
 
-//
-// INPUT FUNCTION
-//
-void mx_input(void);
+
+/*
+ * INPUT FUNCTION
+ */
+void mx_input(char *envp[]);
 void mx_filling_str_with_input(t_ush *ush, char ch);
+
+
+/*
+ * Builtjn's commands
+ */
+void mx_env(t_ush *ush, char *envp[]);
+void mx_cd(t_ush *ush);
+void mx_pwd (t_ush *ush);

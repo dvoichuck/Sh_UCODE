@@ -1,15 +1,15 @@
 #include "ush.h"
 
-static int tmain(int argc, char *argv[]);
+static int tmain(int argc, char *argv[], char *envp[]);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[], char *envp[]) {
 
 //    system("leaks -q ush");
-    return tmain(argc, argv);
+    return tmain(argc, argv, envp);
 }
 
-static int tmain(int argc, char *argv[]) {
-    mx_input();
+static int tmain(int argc, char *argv[], char *envp[]) {
+    mx_input(envp);
     return 1;
 
 }

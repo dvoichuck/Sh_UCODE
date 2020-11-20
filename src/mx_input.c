@@ -4,7 +4,7 @@
 
 #include "ush.h"
 
-void mx_input(void) {
+void mx_input(char *envp[]) {
 //    struct termios savetty;
 //    struct termios tty;
     char ch = '\0';
@@ -17,12 +17,12 @@ void mx_input(void) {
 //    tty.c_cc[VMIN] = 1;
 //    tcsetattr(0, TCSAFLUSH, &tty);
     write(1, "u$h> ", 5);
-    while (ush->works) {
+    while (ush->event) {
         if (read(0, &ch, 1) && ch != '\n') {
             mx_filling_str_with_input(ush, ch);
         }
         if (ch == '\n') {
-            mx_parse_ush_manager(ush);
+            mx_parse_ush_manager(ush, envp);
             write(1, "u$h> ", 5);
         }
     }

@@ -5,5 +5,6 @@
 
 void mx_initialization_struct(t_ush *ush) {
     ush->str_input = NULL;
-    ush->works = true;
+    ush->dir_path = NULL;
+    ush->event = true;
 }
