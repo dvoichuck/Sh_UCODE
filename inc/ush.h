@@ -44,8 +44,13 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
 
 
 /*
- * Builtjn's commands
+     * BUILTIN'S COMMANDS
  */
 void mx_env(t_ush *ush, char *envp[]);
-void mx_cd(t_ush *ush);
+void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
+
+/*
+ * UNIX COMMANDS
+ */
+void mx_unix_commands_launcher(t_ush *ush);
