@@ -53,4 +53,4 @@ void mx_pwd (t_ush *ush);
 /*
  * UNIX COMMANDS
  */
-void mx_unix_commands_launcher(t_ush *ush);
+void mx_unix_commands_launcher(t_ush *ush, t_list *cmd);
