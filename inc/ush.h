@@ -47,5 +47,5 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
  * Builtjn's commands
  */
 void mx_env(t_ush *ush, char *envp[]);
-void mx_cd(t_ush *ush);
+void mx_cd(t_ush *ush, char *parh);
 void mx_pwd (t_ush *ush);

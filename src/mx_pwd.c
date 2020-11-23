@@ -10,5 +10,5 @@ void mx_pwd (t_ush *ush) {
     getcwd(path_buf, MAX_LEN);
     mx_printstr(path_buf);
     mx_printchar('\n');
-    free(path_buf);
+//    free(path_buf);
 }

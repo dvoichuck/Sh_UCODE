@@ -6,35 +6,52 @@
 
 
 static void parse_str_input(t_ush *ush, char *envp[]) {
-    int first;
-    int last;
-    char **str = (char **)malloc(sizeof(char *) * 2);
-    int j = 0;
-    for (int i = 0; i < 2; i++)
-        str[i] = NULL;
+    int first = 0;
+    int last = 0;
+    t_list *command_arr = NULL;
+
     for (int i = 0; ush->str_input[i] != '\0'; i++) {
-        if (mx_isalpha(ush->str_input[i])) {
+        if (ush->str_input[i] != ' ') {
+            char *str = NULL;
             first = i;
-            for (; mx_isalpha(ush->str_input[i]); i++);
+            while (ush->str_input[i] != ' ' && ush->str_input[i] != '\0')
+                i++;
             last = i;
-            str[j] = mx_substr(ush->str_input, first, last);
-            j++;
+            str = mx_substr(ush->str_input, first, last);
+            if (str[mx_strlen(str) - 1] == '\n')
+                str[mx_strlen(str) - 1] = '\0';
+            mx_push_back(&command_arr, str);
         }
         if (ush->str_input[i] == ';') {
-            
+            char *str= mx_substr(ush->str_input, i, i);
+            mx_push_back(&command_arr, str);
         }
     }
-    for (int i = 0; str[i]; i++) {
-        if(mx_strcmp(str[0], "pwd\n") == 0) {
+    while (command_arr != NULL) {
+        if (mx_strcmp(command_arr->data, "exit") == 0)
+            exit(1);
+        else if (mx_strcmp(command_arr->data, "pwd") == 0)
             mx_pwd(ush);
+        else if (mx_strcmp(command_arr->data, "cd") == 0) {
+            if (command_arr != NULL)
+                command_arr = command_arr->next;
+            printf("1\n");
+            if (command_arr == NULL) {
+                mx_cd(ush, NULL);
+            }
+            else {
+                mx_cd(ush, command_arr->data);
+            }
         }
-        else if(mx_strcmp(str[0], "cd\n") == 0) {
-            mx_cd(ush);
-        }
-        else if(mx_strcmp(str[0], "env\n") == 0) {
-            mx_env(ush, envp);
-        }
+        if (command_arr != NULL)
+            command_arr = command_arr->next;
     }
+    if (malloc_size(command_arr))
+        free(command_arr);
+//        else if(mx_strcmp(str[0], "env\n") == 0) {
+//            mx_env(ush, envp);
+//        }
+//    }
 }
 
 void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]) {
@@ -57,19 +74,14 @@ void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]) {
 //        else if(mx_strcmp(ush->str_input, "env\n") == 0) {
 //            mx_env(ush, envp);
 //        }
-        else if (mx_strcmp(ush->str_input, "exit\n") == 0) {
-            mx_printstr("exit\n");
-            for (int i = 0; i < 3; i++) {
-                printf("%s", (*all_input)->data);
-                (*all_input) = (*all_input)->next;
-            }
-            exit(1);
-        }
-        else {
-            mx_printerr("ush: command not found: ");
-            mx_printerr(ush->str_input);
-//            mx_printchar('\n');
-        }
+//        else if (mx_strcmp(ush->str_input, "exit\n") == 0) {
+//            mx_printstr("exit\n");
+//            exit(1);
+//        }
+//        else {
+//            mx_printerr("ush: command not found: ");
+//            mx_printerr(ush->str_input);
+//        }
     }
     free(ush->str_input);
     ush->str_input = NULL;
