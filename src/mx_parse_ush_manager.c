@@ -45,6 +45,10 @@ static void parse_str_input(t_ush *ush, char *envp[]) {
                 mx_cd(ush, command_arr->data);
             }
         }
+        else if (mx_strcmp(command_arr->data, "which") == 0) {
+            command_arr = command_arr->next;
+            mx_which(ush, command_arr->data);
+        }
         else
             mx_unix_commands_launcher(ush, command_arr);
         if (command_arr != NULL)

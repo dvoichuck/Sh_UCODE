@@ -21,6 +21,7 @@
 typedef struct s_ush {
     char *str_input;
     char *dir_path;
+    char *which_path;
     bool event;
 } t_ush;
 
@@ -49,6 +50,7 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
 void mx_env(t_ush *ush, char *envp[]);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
+void mx_which(t_ush *ush, char *cmd);
 
 /*
  * UNIX COMMANDS
