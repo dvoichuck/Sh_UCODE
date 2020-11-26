@@ -19,12 +19,11 @@ void mx_input(char *envp[]) {
 //    tcsetattr(0, TCSAFLUSH, &tty);
     write(1, "u$h> ", 5);
     while (ush->event) {
-        if (read(0, &ch, 1)) {
+        if (read(0, &ch, 1) > 0) {
             mx_filling_str_with_input(ush, ch);
         }
         if (ch == '\n') {
             mx_parse_ush_manager(&input, ush, envp);
-
             write(1, "u$h> ", 5);
         }
     }
