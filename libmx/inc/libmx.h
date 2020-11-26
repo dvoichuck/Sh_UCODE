@@ -138,3 +138,4 @@ int mx_int_len(int num);
 char *mx_strjoin_uls(char const *s1, char const *s2);
 void mx_bubble_sort_reverse(char **arr, int size);
 char *mx_substr(const char *str, int a, int b);
+void mx_del_char(char **str, int id, char ch);

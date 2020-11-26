@@ -8,58 +8,90 @@
 static void parse_str_input(t_ush *ush, char *envp[]) {
     int first = 0;
     int last = 0;
-    t_list *command_arr = NULL;
-
-    for (int i = 0; ush->str_input[i] != '\0'; i++) {
+    int len = mx_strlen(ush->str_input);
+    t_list *new_list = NULL;
+    int triger = 0;
+    for (int i = 0; i < len; i++) {
+        triger = 0;
+        if (ush->str_input[i] == '\0')
+            break;
         if (ush->str_input[i] != ' ') {
             char *str = NULL;
             first = i;
-            while (ush->str_input[i] != ' ' && ush->str_input[i] != '\0')
+            while (ush->str_input[i] != ' ' && ush->str_input[i] != '\0') {
+                if (ush->str_input[i] == '"') {
+                    first = i + 1;
+                    for (; ush->str_input[i] != '\0'; i++)
+                        if (ush->str_input[i] == '"')
+                            last = i;
+                    str = mx_substr(ush->str_input, first, last);
+                    mx_push_back(&new_list, str);
+                    triger = 1;
+                }
+                if (ush->str_input[i] == ';') {
+                    mx_push_back(&new_list,
+                                 mx_substr(ush->str_input, first, i));
+                    mx_push_back(&new_list,
+                                 mx_substr(ush->str_input, i, i));
+                    first = i + 1;
+                }
                 i++;
-            last = i;
-            str = mx_substr(ush->str_input, first, last);
-            if (str[mx_strlen(str) - 1] == '\n')
-                str[mx_strlen(str) - 1] = '\0';
-            mx_push_back(&command_arr, str);
-        }
-        if (ush->str_input[i] == ';') {
-            char *str= mx_substr(ush->str_input, i, i);
-            mx_push_back(&command_arr, str);
+            }
+            if (triger == 0) {
+                last = i;
+                str = mx_substr(ush->str_input, first, last);
+                mx_del_char(&str, mx_strlen(str) - 1, '\n');
+                mx_push_back(&new_list, str);
+            }
         }
     }
-
+    triger = 0;
+    t_list *command_arr = new_list;
     while (command_arr != NULL) {
-        if (mx_strcmp(command_arr->data, "exit") == 0)
+        if (mx_strcmp(command_arr->data, "exit") == 0 && triger == 0) {
+            mx_printstr("exit\n");
+            ush->event = false;
+            system("leaks -q ush");
             exit(1);
-        else if (mx_strcmp(command_arr->data, "env") == 0)
+        }
+        else if (mx_strcmp(command_arr->data, "env") == 0 && triger == 0)
             mx_env(ush, envp);
-        else if (mx_strcmp(command_arr->data, "pwd") == 0)
-            mx_pwd(ush);
-        else if (mx_strcmp(command_arr->data, "cd") == 0) {
-            if (command_arr != NULL)
-                command_arr = command_arr->next;
-            if (command_arr == NULL) {
-                mx_cd(ush, NULL);
+        else if (mx_strcmp(command_arr->data, "pwd") == 0 && triger == 0) {
+            command_arr = command_arr->next;
+            if (command_arr == NULL ||
+                mx_strcmp(command_arr->data, ";") == 0) {
+                mx_pwd(ush);
             }
             else {
-                mx_cd(ush, command_arr->data);
+                mx_printstr("pwd: too many arguments\n");
+                triger = 1;
             }
         }
-        else if (mx_strcmp(command_arr->data, "which") == 0) {
-            command_arr = command_arr->next;
-            mx_which(ush, command_arr->data);
-        }
-        else
-            mx_unix_commands_launcher(ush, command_arr);
-        if (command_arr != NULL)
-            command_arr = command_arr->next;
-    }
-    if (malloc_size(command_arr))
-        free(command_arr);
-//        else if(mx_strcmp(str[0], "env\n") == 0) {
-//            mx_env(ush, envp);
+//        else if (mx_strcmp(command_arr->data, "which") == 0) {
+//            command_arr = command_arr->next;
+//            mx_which(ush, command_arr->data);
 //        }
-//    }
+        else if (mx_strcmp(command_arr->data, "cd") == 0 && triger == 0) {
+            command_arr = command_arr->next;
+            if (command_arr == NULL || mx_strcmp(command_arr->data, ";") == 0)
+                mx_cd(ush, NULL);
+            else
+                mx_cd(ush, command_arr->data);
+        }
+//        else
+//            mx_unix_commands_launcher(ush, command_arr);
+
+        if (command_arr != NULL) {
+            if (mx_strcmp(command_arr->data, ";") == 0) {
+                triger = 0;
+            }
+            command_arr = command_arr->next;
+        }
+    }
+    while (new_list) {
+        free(new_list->data);
+        mx_pop_front(&new_list);
+    }
 }
 
 void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]) {
@@ -74,28 +106,13 @@ void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]) {
         t_list **all_input = input;
         if (ush->str_input[0] == '\n')
             mx_printstr("");
-//        else if(mx_strcmp(ush->str_input, "pwd\n") == 0) {
-//            mx_pwd(ush);
-//        }
-//        else if(mx_strcmp(ush->str_input, "cd\n") == 0) {
-//            mx_cd(ush);
-//        }
-//        else if(mx_strcmp(ush->str_input, "env\n") == 0) {
-//            mx_env(ush, envp);
-//        }
-//        else if (mx_strcmp(ush->str_input, "exit\n") == 0) {
-//            mx_printstr("exit\n");
-//            exit(1);
-//        }
-//        else {
-//            mx_printerr("ush: command not found: ");
-//            mx_printerr(ush->str_input);
-//        }
     }
-    free(ush->str_input);
-    ush->str_input = NULL;
-//    if (malloc_size(str))
-//        mx_del_strarr(&str);
+    if (malloc_size(ush->str_input)) {
+        free(ush->str_input);
+        ush->str_input = NULL;
+    }
+    if (malloc_size(str_del_char))
+        free(str_del_char);
 }
 
 

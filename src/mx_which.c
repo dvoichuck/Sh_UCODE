@@ -5,8 +5,8 @@
 #include "ush.h"
 
 void mx_which(t_ush *ush, char *cmd) {
-    char *temp = cmd;
-    char *path = system(temp);
-
-    printf("Which %s =  %s\n", temp, path);
+//    char *temp = cmd;
+////    char *path = system(temp);
+//
+//    printf("Which %s =  %s\n", temp, path);
 }
