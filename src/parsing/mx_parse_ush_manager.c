@@ -1,9 +1,4 @@
-//
-// Created by Dima Voichuck on 11/18/20.
-//
-
 #include "ush.h"
-
 
 static void parse_str_input(t_ush *ush, char *envp[]) {
     int first = 0;
