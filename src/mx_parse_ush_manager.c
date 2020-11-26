@@ -78,8 +78,8 @@ static void parse_str_input(t_ush *ush, char *envp[]) {
             else
                 mx_cd(ush, command_arr->data);
         }
-//        else
-//            mx_unix_commands_launcher(ush, command_arr);
+        else
+            mx_unix_commands_launcher(ush, command_arr);
 
         if (command_arr != NULL) {
             if (mx_strcmp(command_arr->data, ";") == 0) {
