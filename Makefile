@@ -6,10 +6,11 @@ OBJ_DIR = obj/
 INC_DIR = inc/
 
 
-SRC = $(wildcard $(SRC_DIR)/*.c)
+DIRS	= $(notdir $(wildcard $(SRC_DIR)*))
+FILES	= $(foreach dir, $(DIRS), $(basename $(wildcard $(SRC_DIR)$(dir)/*.c)))
+SRC		= $(FILES:%=%.c)
 OBJ		= $(SRC:src/%.c=$(OBJ_DIR)%.o)
 INC_H	= $(wildcard $(INC_DIR)*.h)
-
 
 LIB_DIR	 = .
 LIB_LIST = libmx
