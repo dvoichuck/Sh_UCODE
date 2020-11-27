@@ -95,5 +95,3 @@ void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]) {
     if (malloc_size(str_del_char))
         free(str_del_char);
 }
-
-
