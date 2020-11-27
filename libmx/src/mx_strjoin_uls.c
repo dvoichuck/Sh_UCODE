@@ -1,6 +1,6 @@
 #include "libmx.h"
 
-char *mx_strjoin_uls(char const *s1, char const *s2) {
+char *mx_strjoin_ush(char const *s1, char const *s2) {
     char *join;
 
     if (s1 == NULL && s2 == NULL)

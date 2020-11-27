@@ -56,3 +56,8 @@ void mx_which(t_ush *ush, char *cmd);
  * UNIX COMMANDS
  */
 void mx_unix_commands_launcher(t_ush *ush, t_list *cmd);
+
+/*
+ * OUTPUT
+ */
+void mx_error_command_not_found (char *cmd_name);
