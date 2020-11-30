@@ -35,21 +35,22 @@ void mx_initialization_struct(t_ush *ush);
 /*
  * PARSE
  */
-void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]);
+void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp);
 void mx_parse_semicolon(t_ush *ush, t_list **new_list, int *first, int i);
 void mx_parse_quotes(t_ush *ush, int *first, int i, t_list **new_list);
+void mx_signals();
 
 /*
  * INPUT FUNCTION
  */
-void mx_input(char *envp[]);
+void mx_input(char **envp);
 void mx_filling_str_with_input(t_ush *ush, char ch);
 
 
 /*
      * BUILTIN'S COMMANDS
  */
-void mx_env(t_ush *ush, char *envp[]);
+void mx_env(t_ush *ush, char **envp);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
 void mx_which(t_ush *ush, char *cmd);
@@ -57,7 +58,8 @@ void mx_which(t_ush *ush, char *cmd);
 /*
  * UNIX COMMANDS
  */
-void mx_unix_commands_launcher(t_ush *ush, t_list *cmd);
+void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp);
+void mx_child_process(t_ush *ush, char **path, char **envp);
 
 /*
  * OUTPUT

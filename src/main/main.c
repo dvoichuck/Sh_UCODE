@@ -8,8 +8,7 @@ int main(int argc, char *argv[], char *envp[]) {
     return tmain(argc, argv, envp);
 }
 
-static int tmain(int argc, char *argv[], char *envp[]) {
+static int tmain(int argc, char *argv[], char **envp) {
     mx_input(envp);
-    return 1;
-
+    return errno;
 }

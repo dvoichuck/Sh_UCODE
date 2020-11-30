@@ -1,6 +1,6 @@
 #include "ush.h"
 
-static void parse_str_input(t_ush *ush, char *envp[]) {
+static void parse_str_input(t_ush *ush, char **envp) {
     int first = 0;
     int last = 0;
     int len = mx_strlen(ush->str_input);
@@ -33,7 +33,8 @@ static void parse_str_input(t_ush *ush, char *envp[]) {
             mx_printstr("exit\n");
             ush->event = false;
             system("leaks -q ush");
-            exit(1);
+            errno = 1;
+            exit(errno);
         }
         else if (mx_strcmp(command_arr->data, "env") == 0 && ush->triger == 0)
             mx_env(ush, envp);
@@ -60,7 +61,7 @@ static void parse_str_input(t_ush *ush, char *envp[]) {
                 mx_cd(ush, command_arr->data);
         }
         else
-            mx_unix_commands_launcher(ush, command_arr);
+            mx_unix_commands_launcher(ush, command_arr, envp);
 
         if (command_arr != NULL) {
             if (mx_strcmp(command_arr->data, ";") == 0) {
@@ -75,9 +76,10 @@ static void parse_str_input(t_ush *ush, char *envp[]) {
     }
 }
 
-void mx_parse_ush_manager(t_list **input, t_ush *ush, char *envp[]) {
+void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp) {
     char *str_del_char = mx_del_extra_spaces(ush->str_input);
 
+//    mx_signals();
     if (str_del_char[0] == '\0') {
         mx_printstr("");
     }

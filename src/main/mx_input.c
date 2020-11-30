@@ -4,7 +4,7 @@
 
 #include "ush.h"
 
-void mx_input(char *envp[]) {
+void mx_input(char **envp) {
 //    struct termios savetty;
 //    struct termios tty;
     char ch = '\0';

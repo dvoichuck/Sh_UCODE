@@ -1,0 +1,42 @@
+//
+// Created by mac on 29.11.2020.
+//
+
+#include "ush.h"
+
+void mx_child_process(t_ush *ush, char **path, char **envp) {
+    int status = 0;
+    pid_t pid = fork();
+
+    if (pid == 0) {
+        if (execve(path[0], path, envp) == -1) {
+            mx_printerr("Ошибка запуска утилиты!");
+            exit(errno);
+        }
+    }
+    else {
+        waitpid(pid, &status, WUNTRACED);
+        if (WEXITSTATUS(status) == 1)
+            errno = 1;
+        else
+            errno = 0;
+//        if (status == 4735)
+//            push_back(pid, temp, trig);
+    }
+}
+
+//}
+//else {
+//waitpid(pid,
+//&status, WUNTRACED);
+//if (WEXITSTATUS(status) == 1)
+//status_err = 1;
+//else
+//status_err = 0;
+//if (status == 4735)
+//push_back(pid, temp, trig
+//);
+//}
+//return
+//status_err;
+//}
