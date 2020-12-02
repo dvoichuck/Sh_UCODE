@@ -53,7 +53,7 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
 void mx_env(t_ush *ush, char **envp);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
-void mx_which(t_ush *ush, char *cmd);
+void mx_which(t_ush *ush, t_list *cmd, char **envp);
 
 /*
  * UNIX COMMANDS
@@ -62,6 +62,12 @@ void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp);
 void mx_child_process(t_ush *ush, char **path, char **envp);
 
 /*
- * OUTPUT
+ * ERRORS
  */
 void mx_error_command_not_found (char *cmd_name);
+void mx_error_usage_which();
+
+/*
+ * OUTPUT
+ */
+void mx_shell_built_in_command(char *cmd_name);

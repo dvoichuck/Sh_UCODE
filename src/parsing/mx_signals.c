@@ -4,15 +4,13 @@
 
 #include "ush.h"
 
-static void sigcatch(int sig) {
-    sig = 1;
-    mx_printstr("\n");
+static void sig(int sig) {
+    sig = sig + 1 - 1;
 }
 
-
 void mx_signals() {
-    signal(SIGTSTP, sigcatch);
-    signal(SIGINT, sigcatch);
+    signal(SIGTSTP, sig);
+    signal(SIGINT, sig);
     signal(SIGTTOU, SIG_IGN);
     signal(SIGTTIN, SIG_IGN);
 }

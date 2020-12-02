@@ -27,21 +27,20 @@ static void parse_str_input(t_ush *ush, char **envp) {
         }
     }
     ush->triger = 0;
-    t_list *command_arr = new_list;
-    while (command_arr != NULL) {
-        if (mx_strcmp(command_arr->data, "exit") == 0 && ush->triger == 0) {
+    t_list *cmd_arr = new_list;
+    while (cmd_arr != NULL) {
+        if (mx_strcmp(cmd_arr->data, "exit") == 0 && ush->triger == 0) {
             mx_printstr("exit\n");
             ush->event = false;
             system("leaks -q ush");
-            errno = 1;
             exit(errno);
         }
-        else if (mx_strcmp(command_arr->data, "env") == 0 && ush->triger == 0)
+        else if (mx_strcmp(cmd_arr->data, "env") == 0 && ush->triger == 0)
             mx_env(ush, envp);
-        else if (mx_strcmp(command_arr->data, "pwd") == 0 && ush->triger == 0) {
-            command_arr = command_arr->next;
-            if (command_arr == NULL ||
-                mx_strcmp(command_arr->data, ";") == 0) {
+        else if (mx_strcmp(cmd_arr->data, "pwd") == 0 && ush->triger == 0) {
+            cmd_arr = cmd_arr->next;
+            if (cmd_arr == NULL ||
+                mx_strcmp(cmd_arr->data, ";") == 0) {
                 mx_pwd(ush);
             }
             else {
@@ -49,25 +48,27 @@ static void parse_str_input(t_ush *ush, char **envp) {
                 ush->triger = 1;
             }
         }
-//        else if (mx_strcmp(command_arr->data, "which") == 0) {
-//            command_arr = command_arr->next;
-//            mx_which(ush, command_arr->data);
+//        else if (mx_strcmp(cmd_arr->data, "which") == 0) {
+//            cmd_arr = cmd_arr->next;
+//            mx_which(ush, cmd_arr->data);
 //        }
-        else if (mx_strcmp(command_arr->data, "cd") == 0 && ush->triger == 0) {
-            command_arr = command_arr->next;
-            if (command_arr == NULL || mx_strcmp(command_arr->data, ";") == 0)
+        else if (mx_strcmp(cmd_arr->data, "cd") == 0 && ush->triger == 0) {
+            cmd_arr = cmd_arr->next;
+            if (cmd_arr == NULL || mx_strcmp(cmd_arr->data, ";") == 0)
                 mx_cd(ush, NULL);
             else
-                mx_cd(ush, command_arr->data);
+                mx_cd(ush, cmd_arr->data);
         }
+        else if (mx_strcmp(cmd_arr->data, "which") == 0 && ush->triger == 0)
+            mx_which(ush, cmd_arr, envp);
         else
-            mx_unix_commands_launcher(ush, command_arr, envp);
+            mx_unix_commands_launcher(ush, cmd_arr, envp);
 
-        if (command_arr != NULL) {
-            if (mx_strcmp(command_arr->data, ";") == 0) {
+        if (cmd_arr != NULL) {
+            if (mx_strcmp(cmd_arr->data, ";") == 0) {
                 ush->triger = 0;
             }
-            command_arr = command_arr->next;
+            cmd_arr = cmd_arr->next;
         }
     }
     while (new_list) {
@@ -78,15 +79,21 @@ static void parse_str_input(t_ush *ush, char **envp) {
 
 void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp) {
     char *str_del_char = mx_del_extra_spaces(ush->str_input);
+    /*
+     * Проблема в парсе и запуске bultins и unix commands!
+     * Если в input заходят ls и флаги и/или агументы (путь), то повторно
+     * заупскается цикл и снова вызвается unix_commands_launcher!
+     */
 
-//    mx_signals();
+
     if (str_del_char[0] == '\0') {
         mx_printstr("");
     }
     else {
         mx_push_back(input, ush->str_input);
         parse_str_input(ush, envp);
-        t_list **all_input = input;
+//        mx_signals();
+//        t_list **all_input = input;
         if (ush->str_input[0] == '\n')
             mx_printstr("");
     }
