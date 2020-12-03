@@ -4,8 +4,6 @@
 
 #include "ush.h"
 
-void sig_hnd(int sig){ (void)sig; printf("(VINTR)"); }
-
 void mx_input(char **envp) {
     char ch = '\0';
 

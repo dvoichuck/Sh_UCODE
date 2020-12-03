@@ -2,7 +2,6 @@
 
 static void parse_str_input(t_ush *ush, char **envp) {
     int first = 0;
-    int last = 0;
     int len = mx_strlen(ush->str_input);
     t_list *new_list = NULL;
     ush->triger = 0;
@@ -19,14 +18,14 @@ static void parse_str_input(t_ush *ush, char **envp) {
                 i++;
             }
             if (ush->triger == 0) {
-                last = i;
-                str = mx_substr(ush->str_input, first, last);
+                str = mx_substr(ush->str_input, first, i);
                 mx_del_char(&str, mx_strlen(str) - 1, '\n');
                 mx_push_back(&new_list, str);
                 ush->count_list++;
             }
         }
     }
+    printf("%d\n", ush->count_list);
     ush->triger = 0;
     t_list *cmd_arr = new_list;
     while (cmd_arr != NULL) {
@@ -65,13 +64,13 @@ static void parse_str_input(t_ush *ush, char **envp) {
         else {
             if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0) {
                 mx_unix_commands_launcher(ush, cmd_arr, envp);
-                while (cmd_arr != NULL && mx_strcmp(cmd_arr->data, ";") != 0)
-                    cmd_arr = cmd_arr->next;
             }
         }
-        if (cmd_arr != NULL) {
+        while (cmd_arr != NULL) {
             if (mx_strcmp(cmd_arr->data, ";") == 0) {
                 ush->triger = 0;
+                cmd_arr = cmd_arr->next;
+                break;
             }
             cmd_arr = cmd_arr->next;
         }
