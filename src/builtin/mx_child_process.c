@@ -21,26 +21,10 @@ void mx_child_process(t_ush *ush, char **path, char **envp) {
             errno = 1;
         else
             errno = 0;
-        if (status == 4735) {
-            mx_printchar('\n');
-            errno = 130;
-            exit(errno);
-        }
+//        if (status == 4735) {
+//            mx_printchar('\n');
+//            errno = 130;
+//            exit(errno);
+//        }
     }
 }
-
-//}
-//else {
-//waitpid(pid,
-//&status, WUNTRACED);
-//if (WEXITSTATUS(status) == 1)
-//status_err = 1;
-//else
-//status_err = 0;
-//if (status == 4735)
-//push_back(pid, temp, trig
-//);
-//}
-//return
-//status_err;
-//}

@@ -5,5 +5,5 @@
 #include "ush.h"
 
 void mx_error_usage_which() {
-    mx_printstr("usage: which [-as] program ...\n");
+    mx_printerr("usage: which [-as] program ...\n");
 }

@@ -16,11 +16,11 @@ static bool check_exe_file (char *path) {
 }
 
 static void flags_and_argv_parsing(t_list *cmd, char ***path) {
-    t_list *list_buf = cmd;
+    t_list *node_buf = cmd;
 
-    for (int i = 1; list_buf->next; i++) {
-        list_buf = list_buf->next;
-        (*path)[i] = strdup(list_buf->data);
+    for (int i = 1; node_buf->next; i++) {
+        node_buf = node_buf->next;
+        (*path)[i] = strdup(node_buf->data);
     }
 }
 
@@ -30,21 +30,13 @@ void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp) {
     /*
      * нужно чтобы в парсе сохранялось кол-во листов "cmd"!!
      */
-
-
     for (int k = 0; k < 4; k++)
         path[k] = NULL;
     for (int i = 0; path_env[i] != NULL; i++) {
         path[0] = mx_strjoin_ush(path_env[i], cmd->data);
-//        printf("Path[%d] = %s\n", i, path[0]);
         if (check_exe_file(path[0]) == true) {
             if (cmd->next != NULL)
                 flags_and_argv_parsing(cmd, &path);
-//            while (buf_cmd->next) {
-//                buf_cmd = buf_cmd->next;
-//                path[0] = mx_strjoin(path[0], 3234);
-//                path[0] = mx_strjoin(path[0], buf_cmd->data);
-//            }
             mx_child_process(ush, path, envp);
             break;
         }

@@ -54,6 +54,7 @@ void mx_env(t_ush *ush, char **envp);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
 void mx_which(t_ush *ush, t_list *cmd, char **envp);
+void mx_echo(t_ush *ush, t_list *cmd);
 
 /*
  * UNIX COMMANDS
