@@ -23,6 +23,7 @@ typedef struct s_ush {
     char *dir_path;
     char *which_path;
     int triger;
+    int count_list;
     bool event;
 } t_ush;
 

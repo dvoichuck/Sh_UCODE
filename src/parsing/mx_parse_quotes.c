@@ -14,4 +14,5 @@ void mx_parse_quotes(t_ush *ush, int *first, int i, t_list **new_list) {
     str = mx_substr(ush->str_input, (*first), last);
     mx_push_back(&(*new_list), str);
     ush->triger = 1;
+    ush->count_list++;
 }

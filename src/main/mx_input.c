@@ -4,19 +4,25 @@
 
 #include "ush.h"
 
+void sig_hnd(int sig){ (void)sig; printf("(VINTR)"); }
+
 void mx_input(char **envp) {
-//    struct termios savetty;
-//    struct termios tty;
     char ch = '\0';
 
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
     t_list *input = NULL;
     mx_initialization_struct(ush);
-//    tcgetattr(0, &tty);
-//    savetty = tty;
-//    tty.c_lflag &= ~(ICANON | ECHO | ISIG);
-//    tty.c_cc[VMIN] = 1;
-//    tcsetattr(0, TCSAFLUSH, &tty);
+//    setvbuf(stdout,NULL,_IONBF,0);
+//
+//    struct termios old_termios, new_termios;
+//    tcgetattr(0,&old_termios);
+//
+//    signal( SIGINT, sig_hnd );
+//
+//    new_termios             = old_termios;
+//    new_termios.c_cc[VEOF]  = 3; // ^C
+//    new_termios.c_cc[VINTR] = 4; // ^D
+//    tcsetattr(0,TCSANOW,&new_termios);
     write(1, "u$h> ", 5);
     while (ush->event) {
         if (read(0, &ch, 1) > 0) {
@@ -27,5 +33,5 @@ void mx_input(char **envp) {
             write(1, "u$h> ", 5);
         }
     }
-//    tcsetattr(0, TCSAFLUSH, &savetty);
+//    tcsetattr(0,TCSANOW,&old_termios);
 }
