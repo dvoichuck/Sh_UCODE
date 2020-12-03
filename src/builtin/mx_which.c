@@ -35,18 +35,18 @@ static bool check_ush_cmd(char *cmd_name) {
 void mx_which(t_ush *ush, t_list *cmd, char **envp) {
     char **path_env = mx_strsplit(getenv("PATH"), ':');
     char **path = (char **)malloc(sizeof(char *) * 2);
-    t_list *list_buf = cmd;
+    t_list *node_buf = cmd;
 
-    if (!list_buf->next)
+    if (!node_buf->next)
         mx_error_usage_which();
     else {
-        list_buf = list_buf->next;
-        if (check_ush_cmd(list_buf->data) == true)
-            mx_shell_built_in_command(list_buf->data);
+        node_buf = node_buf->next;
+        if (check_ush_cmd(node_buf->data) == true)
+            mx_shell_built_in_command(node_buf->data);
         for (int k = 0; k < 2; k++)
             path[k] = NULL;
         for (int i = 0; path_env[i] != NULL; i++) {
-            path[0] = mx_strjoin_ush(path_env[i], list_buf->data);
+            path[0] = mx_strjoin_ush(path_env[i], node_buf->data);
             if (check_exe_file(path[0]) == true) {
                 mx_printstr(path[0]);
                 mx_printchar('\n');

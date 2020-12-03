@@ -61,6 +61,11 @@ static void parse_str_input(t_ush *ush, char **envp) {
         }
         else if (mx_strcmp(cmd_arr->data, "which") == 0 && ush->triger == 0)
             mx_which(ush, cmd_arr, envp);
+        else if (mx_strcmp(cmd_arr->data, "echo") == 0 && ush->triger == 0) {
+            mx_echo(ush, cmd_arr);
+            while (cmd_arr != NULL && mx_strcmp(cmd_arr->data, ";") != 0)
+                cmd_arr = cmd_arr->next;
+        }
         else {
             if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0) {
                 mx_unix_commands_launcher(ush, cmd_arr, envp);
@@ -90,14 +95,12 @@ void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp) {
      * заупскается цикл и снова вызвается unix_commands_launcher!
      */
 
-
     if (str_del_char[0] == '\0') {
         mx_printstr("");
     }
     else {
         mx_push_back(input, ush->str_input);
         parse_str_input(ush, envp);
-//        mx_signals();
 //        t_list **all_input = input;
         if (ush->str_input[0] == '\n')
             mx_printstr("");
