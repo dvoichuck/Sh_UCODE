@@ -61,9 +61,13 @@ static void parse_str_input(t_ush *ush, char **envp) {
         }
         else if (mx_strcmp(cmd_arr->data, "which") == 0 && ush->triger == 0)
             mx_which(ush, cmd_arr, envp);
-        else
-            mx_unix_commands_launcher(ush, cmd_arr, envp);
-
+        else {
+            if (cmd_arr != NULL && mx_strcmp(cmd_arr->data, ";") != 0) {
+                mx_unix_commands_launcher(ush, cmd_arr, envp);
+                while (cmd_arr != NULL && mx_strcmp(cmd_arr->data, ";") != 0)
+                    cmd_arr = cmd_arr->next;
+            }
+        }
         if (cmd_arr != NULL) {
             if (mx_strcmp(cmd_arr->data, ";") == 0) {
                 ush->triger = 0;
