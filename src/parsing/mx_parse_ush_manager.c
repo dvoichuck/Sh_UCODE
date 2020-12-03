@@ -23,6 +23,7 @@ static void parse_str_input(t_ush *ush, char **envp) {
                 str = mx_substr(ush->str_input, first, last);
                 mx_del_char(&str, mx_strlen(str) - 1, '\n');
                 mx_push_back(&new_list, str);
+                ush->count_list++;
             }
         }
     }
@@ -67,7 +68,7 @@ static void parse_str_input(t_ush *ush, char **envp) {
                 cmd_arr = cmd_arr->next;
         }
         else {
-            if (cmd_arr != NULL && mx_strcmp(cmd_arr->data, ";") != 0) {
+            if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0) {
                 mx_unix_commands_launcher(ush, cmd_arr, envp);
                 while (cmd_arr != NULL && mx_strcmp(cmd_arr->data, ";") != 0)
                     cmd_arr = cmd_arr->next;
@@ -88,6 +89,7 @@ static void parse_str_input(t_ush *ush, char **envp) {
 
 void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp) {
     char *str_del_char = mx_del_extra_spaces(ush->str_input);
+    ush->count_list = 0;
     /*
      * Проблема в парсе и запуске bultins и unix commands!
      * Если в input заходят ls и флаги и/или агументы (путь), то повторно
