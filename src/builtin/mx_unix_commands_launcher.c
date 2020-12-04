@@ -26,11 +26,10 @@ static void flags_and_argv_parsing(t_list *cmd, char ***path) {
 
 void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp) {
     char **path_env = mx_strsplit(getenv("PATH"), ':');
-    char **path = (char **)malloc(sizeof(char *) * 5);
-    /*
-     * нужно чтобы в парсе сохранялось кол-во листов "cmd"!!
-     */
-    for (int k = 0; k < 4; k++)
+    char **path = (char **)malloc(sizeof(char *) * ush->count_list + 1);
+//    char *path[ush->count_list + 1];
+
+    for (int k = 0; k < ush->count_list + 1; k++)
         path[k] = NULL;
     for (int i = 0; path_env[i] != NULL; i++) {
         path[0] = mx_strjoin_ush(path_env[i], cmd->data);
@@ -40,11 +39,16 @@ void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp) {
             mx_child_process(ush, path, envp);
             break;
         }
-        if (path_env[i + 1] == NULL)
+        if (path_env[i + 1] == NULL) {
             mx_error_command_not_found(cmd->data);
+            break;
+        }
         free(path[0]);
         path[0] = NULL;
     }
-    mx_del_strarr(&path_env);
-    mx_del_strarr(&path);
+    if (malloc_size(path_env))
+        mx_del_strarr(&path_env);
+    if (malloc_size(path))
+        mx_del_strarr(&path);
+//    free(path);
 }
