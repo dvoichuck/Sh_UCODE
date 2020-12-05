@@ -22,9 +22,10 @@ typedef struct s_ush {
     char *str_input;
     char *dir_path;
     char *which_path;
-    int triger;
     int count_list;
+    bool triger;
     bool event;
+    bool exe; // переменная для игоря который не сказал ее название
 } t_ush;
 
 /*

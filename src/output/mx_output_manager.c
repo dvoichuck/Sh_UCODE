@@ -43,8 +43,14 @@ void mx_output_manager(t_ush *ush, t_list *new_list, char **envp) {
         else if (mx_strcmp(cmd_arr->data, "echo") == 0 && ush->triger == 0)
             mx_echo(ush, cmd_arr);
         else
-            if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0)
+            if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0) {
+                char *str = cmd_arr->data;
+                if (str[0] == '/')
+                    ush->exe = true;
+                else
+                    ush->exe = false;
                 mx_unix_commands_launcher(ush, cmd_arr, envp);
+            }
         while (cmd_arr != NULL) {
             if (mx_strcmp(cmd_arr->data, ";") == 0) {
                 ush->triger = 0;
