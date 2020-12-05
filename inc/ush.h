@@ -39,7 +39,7 @@ void mx_initialization_struct(t_ush *ush);
 void mx_parse_str_input(t_ush *ush, char **envp);
 void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp);
 void mx_parse_semicolon(t_ush *ush, t_list **new_list, int *first, int i);
-void mx_parse_quotes(t_ush *ush, int *first, int i, t_list **new_list);
+void mx_parse_quotes(t_ush *ush, int *first, int *i, t_list **new_list);
 void mx_signals();
 
 /*

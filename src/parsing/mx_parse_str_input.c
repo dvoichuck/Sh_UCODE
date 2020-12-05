@@ -14,18 +14,17 @@ void mx_parse_str_input(t_ush *ush, char **envp) {
         if (ush->str_input[i] != ' ') {
             char *str = NULL;
             first = i;
-            while (ush->str_input[i] != ' ' && ush->str_input[i] != '\0') {
+            while (ush->str_input[i] != ' ' && ush->str_input[i] != '\0'
+            && ush->str_input[i] != '\n') {
                 if (ush->str_input[i] == '"')
-                    mx_parse_quotes(ush, &first, i, &new_list);
+                    mx_parse_quotes(ush, &first, &i, &new_list);
                 if (ush->str_input[i] == ';')
                     mx_parse_semicolon(ush, &new_list, &first, i);
                 i++;
             }
-            if (ush->triger == 0) {
-                printf("i = %d\nfirst = %d\n", i, first);
+            if (ush->triger == 0 && first != i) {
                 str = mx_substr(ush->str_input, first, i);
-                printf("len = %d\n", mx_strlen(str) - 1);
-                mx_del_char(&str, mx_strlen(str) - 1, '\n');
+//                mx_del_char(&str, mx_strlen(str) - 1, '\n');
                 mx_push_back(&new_list, str);
                 ush->count_list++;
             }

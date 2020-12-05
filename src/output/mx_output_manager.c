@@ -42,19 +42,15 @@ void mx_output_manager(t_ush *ush, t_list *new_list, char **envp) {
             mx_which(ush, cmd_arr, envp);
         else if (mx_strcmp(cmd_arr->data, "echo") == 0 && ush->triger == 0)
             mx_echo(ush, cmd_arr);
-        else {
-            if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0) {
+        else
+            if ((cmd_arr) && mx_strcmp(cmd_arr->data, ";") != 0)
                 mx_unix_commands_launcher(ush, cmd_arr, envp);
-            }
-        }
         while (cmd_arr != NULL) {
             if (mx_strcmp(cmd_arr->data, ";") == 0) {
                 ush->triger = 0;
-                printf("'%s'\n", cmd_arr->data);
                 cmd_arr = cmd_arr->next;
                 break;
             }
-            printf("'%s'\n", cmd_arr->data);
             cmd_arr = cmd_arr->next;
         }
     }
