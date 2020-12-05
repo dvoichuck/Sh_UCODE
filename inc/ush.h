@@ -36,6 +36,7 @@ void mx_initialization_struct(t_ush *ush);
 /*
  * PARSE
  */
+void mx_parse_str_input(t_ush *ush, char **envp);
 void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp);
 void mx_parse_semicolon(t_ush *ush, t_list **new_list, int *first, int i);
 void mx_parse_quotes(t_ush *ush, int *first, int i, t_list **new_list);
@@ -72,4 +73,5 @@ void mx_error_usage_which();
 /*
  * OUTPUT
  */
+void mx_output_manager(t_ush *ush, t_list *new_list, char **envp);
 void mx_shell_built_in_command(char *cmd_name);
