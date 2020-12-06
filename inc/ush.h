@@ -51,9 +51,10 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
 
 
 /*
-     * BUILTIN'S COMMANDS
+ * BUILTIN'S COMMANDS
  */
-void mx_env(t_ush *ush, char **envp);
+void mx_builtin_manager(t_ush *ush, t_list *new_list, char **envp);
+void mx_env(t_ush *ush, t_list *cmd, char **envp);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
 void mx_which(t_ush *ush, t_list *cmd, char **envp);
@@ -74,5 +75,4 @@ void mx_error_usage_which();
 /*
  * OUTPUT
  */
-void mx_output_manager(t_ush *ush, t_list *new_list, char **envp);
 void mx_shell_built_in_command(char *cmd_name);

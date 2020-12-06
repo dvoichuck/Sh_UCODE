@@ -4,7 +4,7 @@
 
 #include "ush.h"
 
-void mx_output_manager(t_ush *ush, t_list *new_list, char **envp) {
+void mx_builtin_manager(t_ush *ush, t_list *new_list, char **envp) {
     ush->triger = 0;
     t_list *cmd_arr = new_list;
     while (cmd_arr != NULL) {
@@ -15,7 +15,7 @@ void mx_output_manager(t_ush *ush, t_list *new_list, char **envp) {
             exit(errno);
         }
         else if (mx_strcmp(cmd_arr->data, "env") == 0 && ush->triger == 0)
-            mx_env(ush, envp);
+            mx_env(ush, cmd_arr, envp);
         else if (mx_strcmp(cmd_arr->data, "pwd") == 0 && ush->triger == 0) {
             cmd_arr = cmd_arr->next;
             if (cmd_arr == NULL ||

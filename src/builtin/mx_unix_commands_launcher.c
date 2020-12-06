@@ -50,5 +50,4 @@ void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp) {
         mx_del_strarr(&path_env);
     if (malloc_size(path))
         mx_del_strarr(&path);
-//    free(path);
 }

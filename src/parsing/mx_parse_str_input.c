@@ -30,5 +30,5 @@ void mx_parse_str_input(t_ush *ush, char **envp) {
             }
         }
     }
-    mx_output_manager(ush, new_list, envp);
+    mx_builtin_manager(ush, new_list, envp);
 }
