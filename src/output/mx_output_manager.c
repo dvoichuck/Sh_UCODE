@@ -60,8 +60,8 @@ void mx_output_manager(t_ush *ush, t_list *new_list, char **envp) {
             cmd_arr = cmd_arr->next;
         }
     }
-    while (new_list) {
-        free(new_list->data);
-        mx_pop_front(&new_list);
-    }
+//    while (new_list) {
+//        free(new_list->data);
+//        mx_pop_front(&new_list);
+//    }
 }
