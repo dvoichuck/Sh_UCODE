@@ -7,10 +7,10 @@
 static void check_for_data(char *str, t_list **new_list) {
     int i;
 
-//    system("leaks -q ush");
     if ((*new_list)->next != NULL)
         mx_printerr("exit: too many arguments\n");
     else {
+        system("leaks -q ush");
         errno = 0;
         if (!mx_isdigit(str[0])) {
             mx_printstr("exit\n");
@@ -26,9 +26,9 @@ static void check_for_data(char *str, t_list **new_list) {
                 free(tmp);
                 exit(errno);
             }
+        errno = mx_atoi(str);
+        exit(errno);
     }
-    errno = mx_atoi(str);
-    exit(errno);
 }
 
 void mx_exit(t_ush *ush, t_list **new_list) {
