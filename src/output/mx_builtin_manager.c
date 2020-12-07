@@ -14,11 +14,7 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
 //    }
     while ((*new_list) != NULL) {
         if (mx_strcmp((*new_list)->data, "exit") == 0) {
-            mx_printstr("exit\n");
-            system("leaks -q ush");
-            (*new_list) = (*new_list)->next;
-            ush->event = false;
-            exit(errno);
+            mx_exit(ush, new_list);
         }
 
         else if (mx_strcmp((*new_list)->data, "env") == 0)
