@@ -53,7 +53,7 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
 /*
  * BUILTIN'S COMMANDS
  */
-void mx_builtin_manager(t_ush *ush, t_list *new_list, char **envp);
+void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp);
 void mx_env(t_ush *ush, t_list *cmd, char **envp);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
