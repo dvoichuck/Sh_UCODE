@@ -110,7 +110,7 @@ int mx_list_size(t_list *list);
 t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *, void *));
 
 /*
- *	OTHER USEFULL FUNCTION - 20 functions
+ *	OTHER USEFULL FUNCTION
  */
 char *mx_charjoin(char *str, char ch);
 int mx_atoi(const char *str);

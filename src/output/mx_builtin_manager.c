@@ -29,10 +29,6 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
                 if ((*new_list))
                     mx_printstr("pwd: too many arguments\n");
         }
-//        else if (mx_strcmp(cmd_arr->data, "which") == 0) {
-//            cmd_arr = cmd_arr->next;
-//            mx_which(ush, cmd_arr->data);
-//        }
         else if (mx_strcmp((*new_list)->data, "cd") == 0) {
             (*new_list) = (*new_list)->next;
             if ((*new_list) == NULL)
