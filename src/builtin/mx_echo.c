@@ -4,6 +4,10 @@
 
 #include "ush.h"
 
+static void output_str_create() {
+
+}
+
 void mx_echo(t_ush *ush, t_list *cmd) {
     t_list *node_buf = cmd;
     char *err = NULL;

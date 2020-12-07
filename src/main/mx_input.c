@@ -6,10 +6,15 @@
 
 void mx_input(char **envp) {
     char ch = '\0';
-
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
     t_list *input = NULL;
+
     mx_initialization_struct(ush);
+    ush->home = getenv("HOME");
+    ush->user = getenv("USER");
+
+//    printf("Home directory: \"%s\"\n", ush->home);
+//    printf("User name: \"%s\"\n", ush->user);
 //    setvbuf(stdout,NULL,_IONBF,0);
 //
 //    struct termios old_termios, new_termios;

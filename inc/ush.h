@@ -19,6 +19,8 @@
 #define MAX_LEN 1024
 
 typedef struct s_ush {
+    char *home;
+    char *user;
     char *str_input;
     char *dir_path;
     char *which_path;
@@ -54,6 +56,7 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
  * BUILTIN'S COMMANDS
  */
 void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp);
+void mx_export(t_ush *ush, t_list *cmd, char **envp);
 void mx_env(t_ush *ush, t_list *cmd, char **envp);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
@@ -64,7 +67,7 @@ void mx_echo(t_ush *ush, t_list *cmd);
  * UNIX COMMANDS
  */
 void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp);
-void mx_child_process(t_ush *ush, char **path, char **envp);
+void mx_child_process(t_ush *ush, char *cmd, char **path, char **envp);
 
 /*
  * ERRORS

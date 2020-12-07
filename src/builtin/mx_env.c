@@ -11,7 +11,7 @@ static bool check_flags(t_list *cmd) {
     return flag_correct;
 }
 
-void mx_env(t_ush *ush, t_list *cmd, char *envp[]) {
+void mx_env(t_ush *ush, t_list *cmd, char **envp) {
     t_list *node_buf = cmd;
 
     if (!cmd->next) {

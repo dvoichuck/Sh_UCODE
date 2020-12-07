@@ -20,7 +20,8 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
             ush->event = false;
             exit(errno);
         }
-
+        else if (mx_strcmp((*new_list)->data, "export") == 0)
+            mx_export(ush, (*new_list), envp);
         else if (mx_strcmp((*new_list)->data, "env") == 0)
             mx_env(ush, (*new_list), envp);
         else if (mx_strcmp((*new_list)->data, "pwd") == 0) {

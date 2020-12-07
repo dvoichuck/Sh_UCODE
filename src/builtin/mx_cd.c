@@ -5,7 +5,7 @@
 #include "ush.h"
 
 void mx_cd(t_ush *ush, char *path) {
-    char *path_buf = !path ? getenv("HOME") : path;
+    char *path_buf = !path ? ush->home : path;
     int result;
 
     result = chdir(path_buf);

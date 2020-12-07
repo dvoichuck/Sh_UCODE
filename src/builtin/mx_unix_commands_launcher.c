@@ -27,7 +27,6 @@ static void flags_and_argv_parsing(t_list *cmd, char ***path) {
 void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp) {
     char **path_env = mx_strsplit(getenv("PATH"), ':');
     char **path = (char **)malloc(sizeof(char *) * ush->count_list + 1);
-//    char *path[ush->count_list + 1];
 
     for (int k = 0; k < ush->count_list + 1; k++)
         path[k] = NULL;
@@ -36,7 +35,7 @@ void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp) {
         if (check_exe_file(path[0]) == true) {
             if (cmd->next != NULL)
                 flags_and_argv_parsing(cmd, &path);
-            mx_child_process(ush, path, envp);
+            mx_child_process(ush, cmd->data, path, envp);
             break;
         }
         if (path_env[i + 1] == NULL) {

@@ -5,13 +5,13 @@
 #include "ush.h"
 
 
-void mx_child_process(t_ush *ush, char **path, char **envp) {
+void mx_child_process(t_ush *ush, char *cmd, char **path, char **envp) {
     int status = 0;
     pid_t pid = fork();
 
     if (pid == 0) {
         if (execve(path[0], path, envp) == -1) {
-            mx_printerr("Ошибка запуска утилиты!\n");
+            perror(cmd);
             exit(errno);
         }
     }
