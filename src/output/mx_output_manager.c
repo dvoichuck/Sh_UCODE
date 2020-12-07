@@ -6,7 +6,12 @@
 
 void mx_output_manager(t_ush *ush, t_list **new_list, char **envp) {
     ush->triger = 0;
-//    t_list *cmd_arr = (*new_list);
+    t_list *cmd_arr = (*new_list);
+    t_list *cmd_arr_2 = (*new_list);
+    while (cmd_arr_2) {
+        printf("list = %s\n", cmd_arr_2->data);
+        cmd_arr_2 = cmd_arr_2->next;
+    }
 
     while ((*new_list) != NULL) {
         if (mx_strcmp((*new_list)->data, "exit") == 0) {
@@ -54,8 +59,8 @@ void mx_output_manager(t_ush *ush, t_list **new_list, char **envp) {
             (*new_list) = (*new_list)->next;
         }
     }
-//    while ((*new_list)) {
-//        free((*new_list)->data);
-//        mx_pop_front(&(*new_list));
-//    }
+    while (cmd_arr) {
+        free(cmd_arr->data);
+        mx_pop_front(&cmd_arr);
+    }
 }

@@ -38,8 +38,7 @@ void mx_parse_str_input(t_ush *ush, char **envp) {
             }
         }
     }
-    if (new_list && ush->triger == 0)
-        mx_output_manager(ush, &new_list, envp);
+    mx_output_manager(ush, &new_list, envp);
     while (new_list) {
         free(new_list->data);
         mx_pop_front(&new_list);
