@@ -6,12 +6,12 @@
 
 void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
     t_list *cmd_arr = (*new_list);
-//    t_list *cmd_arr_2 = (*new_list);
+    t_list *cmd_arr_2 = (*new_list);
 //
-//    while (cmd_arr_2) {
-//        printf("list = %s\n", cmd_arr_2->data);
-//        cmd_arr_2 = cmd_arr_2->next;
-//    }
+    while (cmd_arr_2) {
+        printf("list = %s\n", cmd_arr_2->data);
+        cmd_arr_2 = cmd_arr_2->next;
+    }
     while ((*new_list) != NULL) {
         if (mx_strcmp((*new_list)->data, "exit") == 0) {
             mx_exit(ush, new_list);
@@ -57,7 +57,10 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
         }
     }
     while (cmd_arr) {
-        free(cmd_arr->data);
-        mx_pop_front(&cmd_arr);
+        if (malloc_size(cmd_arr->data)) {
+            free(cmd_arr->data);
+        }
+        if (malloc_size(cmd_arr))
+            mx_pop_front(&cmd_arr);
     }
 }
