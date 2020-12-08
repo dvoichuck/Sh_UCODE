@@ -34,7 +34,8 @@ typedef struct s_ush {
  * MAIN
  */
 void mx_initialization_struct(t_ush *ush);
-
+void mx_env_nodes_filling(t_list **env, t_list **export, char **envp);
+void mx_non_canon_mode(void);
 
 /*
  * PARSE
@@ -50,7 +51,6 @@ void mx_signals();
  */
 void mx_input(char **envp);
 void mx_filling_str_with_input(t_ush *ush, char ch);
-
 
 /*
  * BUILTIN'S COMMANDS

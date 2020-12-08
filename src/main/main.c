@@ -1,6 +1,6 @@
 #include "ush.h"
 
-static int tmain(int argc, char **argv, char **envp);
+static int tmain(int argc, char **argv, char **environ);
 
 int main(int argc, char *argv[], char *envp[]) {
 
@@ -9,6 +9,12 @@ int main(int argc, char *argv[], char *envp[]) {
 }
 
 static int tmain(int argc, char **argv, char **envp) {
+    t_list *env = NULL;
+    t_list *export = NULL;
+
+    mx_env_nodes_filling(&env, &export, envp);
+    mx_signals();
+    mx_input(envp);
 //    t_list *test = NULL;
 //    t_list *test_2 = NULL;
 //    t_list *test_3 = NULL;
@@ -38,9 +44,5 @@ static int tmain(int argc, char **argv, char **envp) {
 //        printf("List #%d = %s\n", i++, test_3->data);
 //        test_3 = test_3->next;
 //    }
-
-    mx_signals();
-    mx_input(envp);
-
     return errno;
 }
