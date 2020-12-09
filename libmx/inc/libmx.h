@@ -110,7 +110,7 @@ int mx_list_size(t_list *list);
 t_list *mx_sort_list(t_list *lst, bool (*cmp)(void *, void *));
 
 /*
- *	OTHER USEFULL FUNCTION - 20 functions
+ *	OTHER USEFULL FUNCTION
  */
 char *mx_charjoin(char *str, char ch);
 int mx_atoi(const char *str);
@@ -138,4 +138,5 @@ int mx_int_len(int num);
 char *mx_strjoin_ush(char const *s1, char const *s2);
 void mx_bubble_sort_reverse(char **arr, int size);
 char *mx_substr(const char *str, int a, int b);
-void mx_del_char(char **str, int id, char ch);
+void mx_del_char(char *str, int id, char ch);
+void mx_push_penultimate(t_list **list, void *data);
