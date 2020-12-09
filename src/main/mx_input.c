@@ -7,6 +7,9 @@
 void mx_input(char **envp) {
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
     t_list *input = NULL;
+//    struct termios tty;
+//
+//    tcgetattr(0, &tty);
 
     ush->ch = '\0';
 
@@ -28,10 +31,12 @@ void mx_input(char **envp) {
 //    new_termios.c_cc[VINTR] = 4; // ^D
 //    tcsetattr(0,TCSANOW,&new_termios);
     write(1, "u$h> ", 5);
+    ush->ch = '\0';
     while (ush->event) {
-        ush->ch = '\0';
         if (read(0, &ush->ch, 1) > 0) {
             mx_filling_str_with_input(ush, ush->ch);
+//        mx_non_canon_mode();
+//        tcsetattr(0, TCSAFLUSH, &tty);
         }
         if (ush->ch == '\n') {
             mx_parse_ush_manager(&input, ush, envp);

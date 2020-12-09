@@ -6,16 +6,20 @@
 
 void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
     t_list *cmd_arr = (*new_list);
-    t_list *cmd_arr_2 = (*new_list);
+//    t_list *cmd_arr_2 = (*new_list);
 ////
-    while (cmd_arr_2) {
-        printf("list = [%s]\n", cmd_arr_2->data);
-        cmd_arr_2 = cmd_arr_2->next;
-    }
+//    while (cmd_arr_2) {
+//        printf("list = %s\n", cmd_arr_2->data);
+//        cmd_arr_2 = cmd_arr_2->next;
+//    }
     while ((*new_list) != NULL) {
         if (mx_strcmp((*new_list)->data, "exit") == 0) {
             mx_exit(ush, new_list);
         }
+//        else if (input->ch[0] == '\x04' && input->index == 0) {
+//            dprintf(1, "exit\n");
+//            exit(0);
+//        }
         else if (mx_strcmp((*new_list)->data, "export") == 0)
             mx_export(ush, (*new_list), envp);
         else if (mx_strcmp((*new_list)->data, "env") == 0)
