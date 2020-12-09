@@ -7,9 +7,9 @@
 void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
     t_list *cmd_arr = (*new_list);
     t_list *cmd_arr_2 = (*new_list);
-//
+////
     while (cmd_arr_2) {
-        printf("list = %s\n", cmd_arr_2->data);
+        printf("list = [%s]\n", cmd_arr_2->data);
         cmd_arr_2 = cmd_arr_2->next;
     }
     while ((*new_list) != NULL) {

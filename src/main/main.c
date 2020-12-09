@@ -3,7 +3,6 @@
 static int tmain(int argc, char **argv, char **envp);
 
 int main(int argc, char *argv[], char *envp[]) {
-
 //    system("leaks -q ush");
     return tmain(argc, argv, envp);
 }
@@ -38,7 +37,6 @@ static int tmain(int argc, char **argv, char **envp) {
 //        printf("List #%d = %s\n", i++, test_3->data);
 //        test_3 = test_3->next;
 //    }
-
     mx_signals();
     mx_input(envp);
 

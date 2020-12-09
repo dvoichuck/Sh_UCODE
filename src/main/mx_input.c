@@ -5,9 +5,10 @@
 #include "ush.h"
 
 void mx_input(char **envp) {
-    char ch = '\0';
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
     t_list *input = NULL;
+
+    ush->ch = '\0';
 
     mx_initialization_struct(ush);
     ush->home = getenv("HOME");
@@ -28,12 +29,14 @@ void mx_input(char **envp) {
 //    tcsetattr(0,TCSANOW,&new_termios);
     write(1, "u$h> ", 5);
     while (ush->event) {
-        if (read(0, &ch, 1) > 0) {
-            mx_filling_str_with_input(ush, ch);
+        ush->ch = '\0';
+        if (read(0, &ush->ch, 1) > 0) {
+            mx_filling_str_with_input(ush, ush->ch);
         }
-        if (ch == '\n') {
+        if (ush->ch == '\n') {
             mx_parse_ush_manager(&input, ush, envp);
-            write(1, "u$h> ", 5);
+            if (ush->ch != '\0')
+                write(1, "u$h> ", 5);
         }
     }
 //    tcsetattr(0,TCSANOW,&old_termios);
