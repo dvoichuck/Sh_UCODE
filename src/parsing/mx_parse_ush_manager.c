@@ -9,7 +9,7 @@ void mx_parse_ush_manager(t_list **input, t_ush *ush, t_env *env) {
     }
     else {
         mx_push_back(input, ush->str_input);
-        mx_parse_str_input(ush, envp);
+        mx_parse_str_input(ush, env);
 //        t_list **all_input = input;
         if (ush->str_input[0] == '\n')
             mx_printstr("");

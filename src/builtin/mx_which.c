@@ -32,7 +32,7 @@ static bool check_ush_cmd(char *cmd_name) {
     return cmd_in_ush_builtin;
 }
 
-void mx_which(t_ush *ush, t_list *cmd, char **envp) {
+void mx_which(t_ush *ush, t_list *cmd, t_env *env) {
     char **path_env = mx_strsplit(getenv("PATH"), ':');
     char **path = (char **)malloc(sizeof(char *) * 2);
     t_list *node_buf = cmd;

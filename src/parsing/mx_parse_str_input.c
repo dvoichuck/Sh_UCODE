@@ -11,7 +11,7 @@ static void del_list(t_list **new_list) {
     }
 }
 
-void mx_parse_str_input(t_ush *ush, char **envp) {
+void mx_parse_str_input(t_ush *ush, t_env *env) {
     int first = 0;
     int len = mx_strlen(ush->str_input);
     t_list *new_list = NULL;
@@ -36,7 +36,7 @@ void mx_parse_str_input(t_ush *ush, char **envp) {
                     }
                     else {
                         mx_parse_semicolon(ush, &new_list, &first, i);
-                        mx_builtin_manager(ush, &new_list, envp);
+                        mx_builtin_manager(ush, &new_list, env);
                     }
                 }
                 i++;
@@ -48,6 +48,6 @@ void mx_parse_str_input(t_ush *ush, char **envp) {
             }
         }
     }
-    mx_builtin_manager(ush, &new_list, envp);
+    mx_builtin_manager(ush, &new_list, env);
     del_list(&new_list);
 }

@@ -49,7 +49,7 @@ void mx_non_canon_mode(void);
 /*
  * PARSE
  */
-void mx_parse_str_input(t_ush *ush, char **envp);
+void mx_parse_str_input(t_ush *ush, t_env *env);
 void mx_parse_ush_manager(t_list **input, t_ush *ush, t_env *env);
 void mx_parse_semicolon(t_ush *ush, t_list **new_list, int *first, int i);
 void mx_parse_quotes(t_ush *ush, int *first, int *i, t_list **new_list);
@@ -64,20 +64,20 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
 /*
  * BUILTIN'S COMMANDS
  */
-void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp);
+void mx_builtin_manager(t_ush *ush, t_list **new_list, t_env *env);
 void mx_exit(t_ush *ush, t_list **new_list);
-void mx_export(t_ush *ush, t_list *cmd, char **envp);
-void mx_env(t_ush *ush, t_list *cmd, char **envp);
+void mx_export(t_ush *ush, t_list *cmd, t_env **env);
+void mx_env(t_ush *ush, t_list *cmd, t_env **env);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
-void mx_which(t_ush *ush, t_list *cmd, char **envp);
+void mx_which(t_ush *ush, t_list *cmd, t_env *env);
 void mx_echo(t_ush *ush, t_list *cmd);
 
 /*
  * UNIX COMMANDS
  */
-void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, char **envp);
-void mx_child_process(t_ush *ush, char *cmd, char **path, char **envp);
+void mx_unix_commands_launcher(t_ush *ush, t_list *cmd, t_env *env);
+void mx_child_process(t_ush *ush, char *cmd, char **path, t_env *env);
 
 /*
  * ERRORS

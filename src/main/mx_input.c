@@ -42,7 +42,7 @@ void mx_input(t_env *env) {
 //        tcsetattr(0, TCSAFLUSH, &tty);
         }
         if (ush->ch == '\n') {
-            mx_parse_ush_manager(&input, ush, envp);
+            mx_parse_ush_manager(&input, ush, env);
             if (ush->ch != '\0')
                 write(1, "u$h> ", 5);
         }

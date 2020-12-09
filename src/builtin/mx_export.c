@@ -12,7 +12,7 @@ static void name_and_value_parse(t_list *cmd, char **name, char **value) {
     (*value) = strdup(buf_arr[1]);
 }
 
-void mx_export(t_ush *ush, t_list *cmd, char **envp) {
+void mx_export(t_ush *ush, t_list *cmd, t_env **env) {
     char *name = NULL;
     char *value = NULL;
     int status = 0;
@@ -26,6 +26,12 @@ void mx_export(t_ush *ush, t_list *cmd, char **envp) {
         errno = status == 0 ? 0 : -1;
     }
     else {
-        mx_printstr("Тут должен быть список имен всех переменных, отмеченных для экспорта в дочерние процессы!\n");
+        t_list *exp_buf = (*env)->export;
+
+        while (exp_buf != NULL) {
+            mx_printstr(exp_buf->data);
+            mx_printchar('\n');
+            exp_buf = exp_buf->next;
+        }
     }
 }

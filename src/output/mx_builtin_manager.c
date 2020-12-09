@@ -4,7 +4,7 @@
 
 #include "ush.h"
 
-void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
+void mx_builtin_manager(t_ush *ush, t_list **new_list, t_env *env) {
     t_list *cmd_arr = (*new_list);
 //    t_list *cmd_arr_2 = (*new_list);
 ////
@@ -21,9 +21,9 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
 //            exit(0);
 //        }
         else if (mx_strcmp((*new_list)->data, "export") == 0)
-            mx_export(ush, (*new_list), envp);
+            mx_export(ush, (*new_list), &env);
         else if (mx_strcmp((*new_list)->data, "env") == 0)
-            mx_env(ush, (*new_list), envp);
+            mx_env(ush, (*new_list), &env);
         else if (mx_strcmp((*new_list)->data, "pwd") == 0) {
             (*new_list) = (*new_list)->next;
             if ((*new_list) == NULL) {
@@ -41,7 +41,7 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
                 mx_cd(ush, (*new_list)->data);
         }
         else if (mx_strcmp((*new_list)->data, "which") == 0)
-            mx_which(ush, (*new_list), envp);
+            mx_which(ush, (*new_list), env);
         else if (mx_strcmp((*new_list)->data, "echo") == 0)
             mx_echo(ush, (*new_list));
         else if ((*new_list)) {
@@ -50,7 +50,7 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, char **envp) {
                 ush->exe = true;
             else
                 ush->exe = false;
-            mx_unix_commands_launcher(ush, (*new_list), envp);
+            mx_unix_commands_launcher(ush, (*new_list), env);
         }
         while ((*new_list) != NULL) {
             (*new_list) = (*new_list)->next;
