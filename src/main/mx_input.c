@@ -5,7 +5,6 @@
 #include "ush.h"
 
 void mx_input(t_env *env) {
-    char ch = '\0';
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
     t_list *input = NULL;
 //    struct termios tty;
@@ -13,6 +12,8 @@ void mx_input(t_env *env) {
 //
 //    tcgetattr(0, &tty);
 //    savety = tty;
+
+    ush->ch = '\0';
 
     mx_initialization_struct(ush);
     ush->home = getenv("HOME");
@@ -33,16 +34,17 @@ void mx_input(t_env *env) {
 //    new_termios.c_cc[VINTR] = 4; // ^D
 //    tcsetattr(0,TCSANOW,&new_termios);
     write(1, "u$h> ", 5);
-
+    ush->ch = '\0';
     while (ush->event) {
+        if (read(0, &ush->ch, 1) > 0) {
+            mx_filling_str_with_input(ush, ush->ch);
 //        mx_non_canon_mode();
 //        tcsetattr(0, TCSAFLUSH, &tty);
-        if (read(0, &ch, 1) > 0) {
-            mx_filling_str_with_input(ush, ch);
         }
-        if (ch == '\n') {
+        if (ush->ch == '\n') {
             mx_parse_ush_manager(&input, ush, envp);
-            write(1, "u$h> ", 5);
+            if (ush->ch != '\0')
+                write(1, "u$h> ", 5);
         }
     }
 //    tcsetattr(0,TCSANOW,&old_termios);

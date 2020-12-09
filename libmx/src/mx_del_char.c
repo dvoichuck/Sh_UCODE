@@ -4,7 +4,7 @@
 
 #include "libmx.h"
 
-void mx_del_char(char **str, int id, char ch) {
-    if (id != 0 && (*str)[id] == ch)
-        (*str)[id] = '\0';
+void mx_del_char(char *str, int id, char ch) {
+    if (id != 0 && str[id] == ch)
+        str[id] = '\0';
 }

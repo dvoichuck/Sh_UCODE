@@ -25,6 +25,7 @@ typedef struct s_ush {
     char *dir_path;
     char *which_path;
     int count_list;
+    char ch;
     bool triger;
     bool event;
     bool exe; // переменная для игоря который не сказал ее название
