@@ -28,7 +28,15 @@ typedef struct s_ush {
     bool triger;
     bool event;
     bool exe; // переменная для игоря который не сказал ее название
-} t_ush;
+}              t_ush;
+
+typedef struct s_environment {
+    t_list *env;
+    t_list *export;
+    char *pwd;
+    char *old_pwd;
+    char *shlvl;
+}              t_env;
 
 /*
  * MAIN
@@ -41,7 +49,7 @@ void mx_non_canon_mode(void);
  * PARSE
  */
 void mx_parse_str_input(t_ush *ush, char **envp);
-void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp);
+void mx_parse_ush_manager(t_list **input, t_ush *ush, t_env *env);
 void mx_parse_semicolon(t_ush *ush, t_list **new_list, int *first, int i);
 void mx_parse_quotes(t_ush *ush, int *first, int *i, t_list **new_list);
 void mx_signals();
@@ -49,7 +57,7 @@ void mx_signals();
 /*
  * INPUT FUNCTION
  */
-void mx_input(char **envp);
+void mx_input(t_env *env);
 void mx_filling_str_with_input(t_ush *ush, char ch);
 
 /*

@@ -4,13 +4,15 @@
 
 #include "ush.h"
 
-void mx_input(char **envp) {
+void mx_input(t_env *env) {
     char ch = '\0';
     t_ush *ush = (t_ush *)malloc(sizeof(t_ush));
     t_list *input = NULL;
 //    struct termios tty;
+//    struct termios savety;
 //
 //    tcgetattr(0, &tty);
+//    savety = tty;
 
     mx_initialization_struct(ush);
     ush->home = getenv("HOME");
@@ -22,7 +24,8 @@ void mx_input(char **envp) {
 //
 //    struct termios old_termios, new_termios;
 //    tcgetattr(0,&old_termios);
-//
+
+
 //    signal( SIGINT, sig_hnd );
 //
 //    new_termios             = old_termios;

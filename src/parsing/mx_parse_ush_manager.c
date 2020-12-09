@@ -1,6 +1,6 @@
 #include "ush.h"
 
-void mx_parse_ush_manager(t_list **input, t_ush *ush, char **envp) {
+void mx_parse_ush_manager(t_list **input, t_ush *ush, t_env *env) {
     char *str_del_char = mx_del_extra_spaces(ush->str_input);
     ush->count_list = 0;
     /*

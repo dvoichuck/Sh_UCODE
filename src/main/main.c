@@ -9,12 +9,11 @@ int main(int argc, char *argv[], char *envp[]) {
 }
 
 static int tmain(int argc, char **argv, char **envp) {
-    t_list *env = NULL;
-    t_list *export = NULL;
+    t_env *env = (t_env *)malloc(sizeof(t_env));
 
-    mx_env_nodes_filling(&env, &export, envp);
+    mx_env_nodes_filling(&env->env, &env->export, envp);
     mx_signals();
-    mx_input(envp);
+    mx_input(env);
 //    t_list *test = NULL;
 //    t_list *test_2 = NULL;
 //    t_list *test_3 = NULL;
