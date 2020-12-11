@@ -13,12 +13,14 @@ static bool check_flags(t_list *cmd) {
 
 void mx_env(t_ush *ush, t_list *cmd, t_env **env) {
     t_list *node_buf = cmd;
-    extern char **environ;
+//    extern char **environ;
 
     if (!cmd->next) {
-        for (int i = 0; environ[i] != NULL; i++) {
-            mx_printstr(environ[i]);
+        t_list *env_buf_node = (*env)->env;
+        while (env_buf_node) {
+            mx_printstr(env_buf_node->data);
             mx_printchar('\n');
+            env_buf_node = env_buf_node->next;
         }
     }
     else {

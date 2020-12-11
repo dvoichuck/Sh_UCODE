@@ -14,7 +14,7 @@ void mx_builtin_manager(t_ush *ush, t_list **new_list, t_env *env) {
 //    }
     while ((*new_list) != NULL) {
         if (mx_strcmp((*new_list)->data, "exit") == 0) {
-            mx_exit(ush, new_list);
+            mx_exit(ush, env, new_list);
         }
 //        else if (input->ch[0] == '\x04' && input->index == 0) {
 //            dprintf(1, "exit\n");

@@ -37,14 +37,16 @@ typedef struct s_environment {
     char *pwd;
     char *old_pwd;
     char *shlvl;
+    int export_size;
 }              t_env;
 
 /*
  * MAIN
  */
 void mx_initialization_struct(t_ush *ush);
-void mx_env_nodes_filling(t_list **env, t_list **export, char **envp);
+void mx_env_nodes_filling(t_env **env, char **envp);
 void mx_non_canon_mode(void);
+void mx_free_memory(t_ush **ush, t_env **env, t_list **cmd);
 
 /*
  * PARSE
@@ -65,13 +67,14 @@ void mx_filling_str_with_input(t_ush *ush, char ch);
  * BUILTIN'S COMMANDS
  */
 void mx_builtin_manager(t_ush *ush, t_list **new_list, t_env *env);
-void mx_exit(t_ush *ush, t_list **new_list);
+void mx_exit(t_ush *ush, t_env *env, t_list **new_list);
 void mx_export(t_ush *ush, t_list *cmd, t_env **env);
 void mx_env(t_ush *ush, t_list *cmd, t_env **env);
 void mx_cd(t_ush *ush, char *path);
 void mx_pwd (t_ush *ush);
 void mx_which(t_ush *ush, t_list *cmd, t_env *env);
 void mx_echo(t_ush *ush, t_list *cmd);
+void mx_refilling_env(t_env **env, char *env_var);
 
 /*
  * UNIX COMMANDS
